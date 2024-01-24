@@ -9,31 +9,31 @@ As it was developed in assembly language with my other teammates had to work ver
 
 ## **Code**  
 
-INCLUDE Irvine32.inc
+INCLUDE Irvine32.inc  
 
-.data
-plaintext   BYTE 100 DUP(?) ;To store the plain text
-ciphertext  BYTE SIZEOF plaintext DUP(0) ;To Store the Cipher Text
+.data  
+plaintext   BYTE 100 DUP(?) ;To store the plain text  
+ciphertext  BYTE SIZEOF plaintext DUP(0) ;To Store the Cipher Text  
+  
+key         DWORD 3 ;The predefined key  
+key1        DWORD ?   
+checkv      DWORD ?  
 
-key         DWORD 3 ;The predefined key
-key1        DWORD ? 
-checkv      DWORD ?
-
-promptplain BYTE "Enter the plain text: ",0
-keyPrompt   BYTE "Enter the key: ", 0
-invalidKey  BYTE "Invalid key! Please enter key again : ", 0
-checktext   BYTE "Enter 1 to show decrypted message ",0
-checktext2  BYTE "Enter 2 to show encrypted message ",0
-checktext3  BYTE "Enter 3 to change plain text ",0
-checktext1  BYTE "Enter 4 to exit : ",0
-encryptedMsg BYTE "Encrypted Text: ", 0
-encryptsuccess BYTE "Encryption Successful ", 0
-decryptedMsg BYTE "Decrypted Text: ", 0
-decryptsuccess BYTE "Decryption Successful ", 0
-
-.code
-main PROC
-    
+promptplain BYTE "Enter the plain text: ",0  
+keyPrompt   BYTE "Enter the key: ", 0  
+invalidKey  BYTE "Invalid key! Please enter key again : ", 0  
+checktext   BYTE "Enter 1 to show decrypted message ",0  
+checktext2  BYTE "Enter 2 to show encrypted message ",0  
+checktext3  BYTE "Enter 3 to change plain text ",0  
+checktext1  BYTE "Enter 4 to exit : ",0  
+encryptedMsg BYTE "Encrypted Text: ", 0  
+encryptsuccess BYTE "Encryption Successful ", 0  
+decryptedMsg BYTE "Decrypted Text: ", 0  
+decryptsuccess BYTE "Decryption Successful ", 0  
+  
+.code  
+main PROC  
+      
     ent_plain_again:
          ; Taking plain text from user
          call Clrf
@@ -127,17 +127,17 @@ main PROC
              call Crlf
              call WaitMsg
              call ExitProcess
-main ENDP
-
-; Function to encrypt the text using Caesar cipher
-CaesarEncrypt PROC
-    mov  al, 0
-    movzx ebx, byte ptr key
-
-encrypt_loop:
-    cmp  BYTE PTR [esi], 0  ; Check for the null terminator
-    je   encrypt_done
-
+main ENDP  
+  
+; Function to encrypt the text using Caesar cipher  
+CaesarEncrypt PROC  
+    mov  al, 0  
+    movzx ebx, byte ptr key  
+  
+encrypt_loop:  
+    cmp  BYTE PTR [esi], 0  ; Check for the null terminator  
+    je   encrypt_done  
+  
     mov  al, [esi]
     add  al, bl
     mov  [edi], al
@@ -146,18 +146,18 @@ encrypt_loop:
     inc  edi
     loop encrypt_loop
 
-encrypt_done:
-    ret
-CaesarEncrypt ENDP
-
-CaesarDecrypt PROC
-    mov  eax, 0
-    movzx ebx, byte ptr key
-
-decrypt_loop:
-    cmp  BYTE PTR [esi], 0  ; Check for the null terminator
-    je   decrypt_done
-
+encrypt_done:  
+    ret  
+CaesarEncrypt ENDP  
+  
+CaesarDecrypt PROC  
+    mov  eax, 0  
+    movzx ebx, byte ptr key  
+  
+decrypt_loop:  
+    cmp  BYTE PTR [esi], 0  ; Check for the null terminator  
+    je   decrypt_done  
+  
     mov  al, [esi]
     sub  al, bl
     mov  [edi], al
@@ -166,8 +166,8 @@ decrypt_loop:
     inc  edi
     loop decrypt_loop
 
-decrypt_done:
-    ret
-CaesarDecrypt ENDP
-
-END main
+decrypt_done:  
+    ret  
+CaesarDecrypt ENDP  
+  
+END main  
